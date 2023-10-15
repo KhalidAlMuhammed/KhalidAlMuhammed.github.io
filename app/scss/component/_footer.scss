@@ -1,0 +1,286 @@
+@use '../abstracts/' as *;
+.footer {
+    position: relative;
+    .block-text .heading {
+        margin-bottom: 16px;
+    }
+    .footer__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 100px 0;
+
+        div {
+            p {
+                font-weight: 300;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .list {
+            display: flex;
+            margin-bottom: 16px;
+
+            margin-left: 22px;
+            li {
+                margin: 0 16px;
+
+                a {
+                    font-weight: 600;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .list-social {
+            @include flex(center,center);
+            margin-top: 0;
+          
+            li {
+                margin: 0 5px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+                a {
+                    min-width: 38px;
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.05);
+
+                    @include flex(center,center);
+
+                    &:hover {
+                        background: linear-gradient(264.28deg, #DEC7FF -38.2%, #5C27FE 103.12%);
+                    }
+
+                }
+            }
+        }
+
+        @include tablet {
+            flex-wrap: wrap;
+            justify-content: center;
+
+            div {
+                width: 100%;
+                margin: 30px 0;
+
+                .list {
+                    justify-content: center;
+                    flex-wrap: wrap;
+
+                    li {
+                        margin: 0 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form {
+    text-align: center;
+    margin-top: 39px;
+    .form-control {
+        max-width: 540px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(2px);
+        border-radius: 10px;
+        margin: 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-weight: 300;
+        font-size: 14px;
+        color: #fff;
+        padding: 15px;
+        box-shadow: none;
+
+        &:focus {
+            border-color: var(--primary-color);
+        }
+    }
+
+    button {
+        margin-top: 14px;
+        span {
+            padding: 15px 40px;
+        }
+    }
+}
+
+.footer.s1 {
+    padding: 0 0 20px;
+    .footer__bottom {
+        padding: 25px 0;
+    }
+}
+
+@-webkit-keyframes pulse-grow-on-hover {
+    to {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+
+  .footer.style-2 {
+    padding-bottom: 30px;
+    .footer__main {
+        display: flex;
+
+        .info-left {
+            width: 30%;
+
+            .list-social {
+                justify-content: flex-start;
+                margin-top: 16px;
+                
+
+                li {
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+
+        .right {
+            width: 70%;
+            padding-left: 47px;
+            padding-top: 2px;
+
+            .top {
+                display: flex;
+
+                @include mobile {
+                    flex-wrap: wrap;
+
+                    .widget {
+                        width: 50%;
+                        margin: 0;
+                    }
+
+                    .widget:last-child{
+                        padding-left: 0;
+                        padding-top: 30px;
+                        width: 100%;
+
+                        .form .form-control {
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 51px;
+                p {
+                    font-weight: 300;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.3);
+                }
+
+                .list {
+                    display: flex;
+                    margin-right: 9px;
+
+                    li {
+                        margin-left: 41px;
+                        a {
+                            font-family: 'Readex Pro';
+                            font-weight: 300;
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                @include mobile {
+                    flex-wrap: wrap;
+                    text-align: center;
+                    justify-content: center;
+
+                    .list {
+                        margin-top: 20px;
+
+                        li {
+                            margin: 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        @include desktop-1200 {
+            flex-wrap: wrap;
+
+            .info-left {
+                width: 100%;
+            }
+
+            .right {
+                width: 100%;
+                padding-left: 0;
+                padding-top: 40px;
+            }
+        }
+    }
+  }
+
+  .widget {
+
+
+    margin-right: 80px;
+
+    &:last-child {
+        margin-right: 0;
+        width: 49%;
+        padding-left: 9px;
+    }
+
+    li a {
+        font-family: 'Readex Pro';
+        font-weight: 300;
+        font-size: 14px;
+    }
+    
+    h5 {
+        font-size: 18px;
+        text-transform: none;
+    }
+
+    li {
+        &:first-child {
+            margin-bottom: 45px;
+        }
+
+        margin-bottom: 10px;
+    }
+
+    form {
+        text-align: left;
+
+        p {
+            margin-top: 45px;
+            margin-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        .form-group {
+            position: relative;
+
+            button {
+                position: absolute;
+                right: 15px;
+                top: 4px;
+                background: none;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+  }
