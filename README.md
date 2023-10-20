@@ -4,6 +4,7 @@ Hello! I'm Khalid, an engineering student at Columbia University with a scholars
 
 ## Contact Me
 - Email: kma2187@columbia.edu
+- Phone Number: 4243093096
 - [LinkedIn](https://www.linkedin.com)
 
 ## Education and Achievements
