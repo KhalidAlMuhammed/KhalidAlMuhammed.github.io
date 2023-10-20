@@ -1,6 +1,6 @@
 # Khalid Al Muhammed
 
-Hello! I'm Khalid, an engineering student at Columbia University, bioengineering enthusiast, and a scholar at KAUST. I've also conducted research at Johns Hopkins University and King Fahd University of Petroleum and Minerals. I'm passionate about technology, education, and making significant contributions to these fields.
+Hello! I'm Khalid, an engineering student at Columbia University with a scholarship from KAUST. I've also conducted research at Johns Hopkins University and King Fahd University of Petroleum and Minerals. I'm passionate about technology, education, and making significant contributions to these fields.
 
 ## Contact Me
 - Email: kma2187@columbia.edu
