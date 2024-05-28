@@ -1,0 +1,33 @@
+@use '../abstracts/' as *;
+
+
+.block-text  {
+    .sub-heading {
+        padding: 7px 14px;
+        background: linear-gradient(89.96deg, rgba(255, 255, 255, 0.05) 0.03%, rgba(255, 255, 255, 0.008) 49.67%, rgba(255, 255, 255, 0.05) 99.96%);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        display: inline-block;
+        span {
+            background: linear-gradient(264.28deg, #DEC7FF -38.2%, #5C27FE 103.12%), #FFFFFF;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        margin-bottom: 22px;
+
+        
+    }
+    .heading {
+        margin-bottom: 25px;
+        text-transform: none;
+    }
+
+    .action-btn {
+        span {
+            padding: 14px 24px;
+        }
+    }
+}
