@@ -1,25 +1,10 @@
 # Khalid Al Muhammed
 
-Hello! I'm Khalid, an engineering student at Columbia University with a scholarship from KAUST. I've also conducted research at Johns Hopkins University and King Fahd University of Petroleum and Minerals. I'm passionate about technology, education, and making significant contributions to these fields.
+Hey there! I'm Khalid, a software engineer with a knack for turning coffee into code. When I’m not busy building ML models, you can find me perfecting my left hook and right cross in the ring. I've got a couple of academic awards and hackathons under my belt, but my real claim to fame is my passion for tackling new challenges with a positive impact. Columbia University is my current playground, and I'm always ready for the next tech adventure!
 
 ## Contact Me
-- Email: kma2187@columbia.edu
+- Email: khalid.almuhammed@columbia.edu
 - Phone Number: 4243093096
-- [LinkedIn](https://www.linkedin.com)
-
-## Education and Achievements
-- Currently studying at Columbia University Fu Foundation School of Engineering and Applied Science
-- Recipient of the KAUST KGSP full scholarship
-- 1st place at King Faisal University Biohackathon (May 2023)
-- Finalist of the National Olympiad for Scientific Creativity (IBDAA) (2023, 2021)
-
-## Projects and Experiences
-- Synthesized a self-healing gelatin-glycerol material and assessed its structural and chemical properties using analytical techniques.
-- Conducted in-depth literature review on the History and Philosophy of Artificial Intelligence at Johns Hopkins University.
-- Developed an innovative method for quantifying light pollution leveraging camera technology and Python programming.
-  
-## Extracurricular Involvement
-- Mentored high school students to success in international competition at Ertiqa.
-- Volunteer work at Saudi Aramco and Computer Refurbishment Volunteer at Ertiqa, leading initiatives to donate computers to those in need.
+- [LinkedIn](https://www.linkedin.com/in/khalid-mahmoud-almohammed/)
 
 For more details, visit [my website](https://kalmuhammed.me).
