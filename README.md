@@ -1,10 +1,13 @@
-# Khalid Al Muhammed
+# Khalid Al Muhammed — kalmuhammed.com
 
-Hey there! I'm Khalid, a software engineer with a knack for turning coffee into code. When I’m not busy building ML models, you can find me perfecting my left hook and right cross in the ring. I've got a couple of academic awards and hackathons under my belt, but my real claim to fame is my passion for tackling new challenges with a positive impact. Columbia University is my current playground, and I'm always ready for the next tech adventure!
+The calm before the storm.
 
-## Contact Me
+A single-file, no-framework hero. Apple-inspired type, white + black with a subtle
+orange storm gathering in the background. Deployed via GitHub Pages from `main`.
+
+- `index.html` — the whole site (inline CSS, zero dependencies)
+- `CNAME` — custom domain
+
+## Contact
 - Email: khalid.almuhammed@columbia.edu
-- Phone Number: 4243093096
 - [LinkedIn](https://www.linkedin.com/in/khalid-mahmoud-almohammed/)
-
-For more details, visit [my website](https://kalmuhammed.me).
