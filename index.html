@@ -84,22 +84,6 @@
       animation: rise 1s cubic-bezier(.2,.7,.2,1) both;
     }
 
-    .eyebrow .pulse {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.55);
-      animation: ping 2.4s cubic-bezier(.2,.7,.2,1) infinite;
-      transform: translateY(-0.05em);
-    }
-
-    @keyframes ping {
-      0%   { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.55); }
-      70%  { box-shadow: 0 0 0 11px rgba(255, 90, 31, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0); }
-    }
-
     h1 {
       font-size: clamp(56px, 15.5vw, 240px);
       line-height: 0.92;
@@ -157,8 +141,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .storm, .eyebrow .pulse,
-      .eyebrow, h1, .sub, .footer { animation: none; }
+      .storm, .eyebrow, h1, .sub, .footer { animation: none; }
     }
   </style>
 </head>
@@ -167,14 +150,11 @@
   <div class="storm" aria-hidden="true"></div>
 
   <main class="stage">
-    <span class="eyebrow"><span class="pulse"></span>The calm</span>
+    <span class="eyebrow">Khalid Al Muhammed</span>
 
-    <h1><span class="before">Before the</span> <span class="storm-word">storm.</span></h1>
+    <h1><span class="storm-word">Soon.</span></h1>
 
-    <p class="sub">
-      <b>Khalid Al Muhammed</b> is building something.<br />
-      Quietly. For now.
-    </p>
+    <p class="sub">You'll <b>know</b>.</p>
   </main>
 
   <footer class="footer">
