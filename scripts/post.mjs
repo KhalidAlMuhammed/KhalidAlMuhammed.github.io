@@ -20,6 +20,7 @@ import matter from "gray-matter";
 import pg from "pg";
 import { loadEnv } from "./env.mjs";
 import { pgConfig } from "./pgconfig.mjs";
+import { lintPost } from "./lint.mjs";
 
 loadEnv();
 
@@ -35,39 +36,63 @@ function fail(message) {
 }
 
 const TEMPLATE = (slug) => `---
-title: "A working title that states the argument"
-description: "One or two sentences. This is the dek under the title, the meta description, and the excerpt every syndication target shows. Make it the thesis, not a teaser."
-tags: [ai, systems]
+title: ""
+description: ""
+tags: []
 status: draft
 publishedAt: null
-references:
-  - id: vaswani2017
-    authors: "Vaswani, A., Shazeer, N., Parmar, N., et al."
-    year: 2017
-    title: "Attention Is All You Need"
-    venue: "NeurIPS"
-    url: "https://arxiv.org/abs/1706.03762"
-    note: "Verify every reference before publishing."
+references: []
 ---
 
-Open on the concrete thing that happened. A specific moment, a specific
-failure, a specific number on a specific night. Not a definition.
+<!-- ────────────────────────────────────────────────────────────────
+     THE BRIEF. Answer all five, in writing, before you draft a line
+     of the essay. Delete this block when the answers stop being
+     useful to you.
 
-## The claim everyone repeats
+     There is deliberately no section skeleton here. The last one
+     produced four essays with the same four headings, which is how
+     you get a blog that reads like one piece written repeatedly.
+     The shape should come from the argument, not from a template.
 
-State the received wisdom fairly and at its strongest, then cite where it comes
-from [@vaswani2017]. An argument that beats a weak version of the other side
-has not beaten anything.
+     1. THE CLAIM I AM ARGUING AGAINST, AND WHOSE IT IS.
+        A specific paper, method, practice or person. Not "the field",
+        not "people think" — those are opponents who never turn up.
+        If this is blank you do not have an essay yet, you have a topic.
 
-## Where it breaks
+        >
 
-This is the section only you can write: what happened when you actually built
-it. Numbers, logs, the shape of the failure.
+     2. WHAT I MEASURED, AND OUT OF WHAT.
+        Real numbers from a real log, table or file, each with its
+        denominator, plus how you counted. No invented evidence, ever.
+        If you have not measured anything, go and measure it; that is
+        the part of this nobody else can write.
 
-## What I think is actually true
+        >
 
-Land the thesis. Say what you would do differently and what you are still
-unsure about — the uncertainty is what makes the rest credible.
+     3. WHAT WOULD PROVE ME WRONG.
+        The observation that would change your mind. If nothing could,
+        the thesis is a preference and should be written as one.
+
+        >
+
+     4. THE STRONGEST OBJECTION, FROM SOMEONE WHO KNOWS MORE THAN ME.
+        Write it at full strength, then say what it legitimately
+        retires. An essay that concedes nothing argued with a strawman.
+
+        >
+
+     5. THE PAPERS, AND WHAT EACH ONE ACTUALLY DID.
+        Open each one. Method, dataset, a number it reported, or the
+        limitation that makes it not quite fit your case. If all you
+        can write is the title, you have not read it and must not
+        cite it.
+
+        >
+
+     ──────────────────────────────────────────────────────────────── -->
+
+Start with the concrete thing you can show: the artifact, the log line, the
+measurement. Not a definition, and not a scene you reconstructed from memory.
 `;
 
 async function withClient(fn) {
@@ -79,6 +104,8 @@ async function withClient(fn) {
     await client.end();
   }
 }
+
+const NO_LINT = rest.includes("--no-lint");
 
 function parseFile(path) {
   if (!existsSync(path)) fail(`no such file: ${path}`);
@@ -109,6 +136,21 @@ function parseFile(path) {
   );
   const unknown = [...new Set(used)].filter((k) => !keys.has(k));
   if (unknown.length) fail(`${path}: cited but not in references: ${unknown.join(", ")}`);
+
+  // Prose lint. Errors block the push; the point is to force the rewrite
+  // rather than to publish something essay-shaped and hollow.
+  const { errors, warnings } = NO_LINT ? { errors: [], warnings: [] } : lintPost({
+    body: content,
+    references,
+    description: data.description,
+  });
+  for (const w of warnings) console.warn(`  warning: ${w}`);
+  if (errors.length) {
+    console.error(`\n${path} failed the prose lint:\n`);
+    for (const e of errors) console.error(`  - ${e}`);
+    console.error("\nSee docs/VOICE.md. Override for a deliberate exception: --no-lint\n");
+    process.exit(1);
+  }
 
   return {
     slug,

@@ -32,6 +32,14 @@ npm run post:publish -- the-slug        # flips status to published
 description, every reference needs an id/authors/title, and every `[@key]` in
 the prose must resolve to a reference. A published post must have a date.
 
+It then runs the **prose lint** (`scripts/lint.mjs`), which blocks the push on a
+post under 1,200 words, fewer than 8 distinct numbers in the prose, a reference
+that is never cited, or a sentence whose only job is to announce the next one.
+It warns on citations whose surrounding paragraph names no method or number, on
+machine cadence (em-dash density, repeated "it is not X, it is Y"), and on an
+essay with sources but no passage conceding anything to the other side. Override
+with `--no-lint`. Rationale and the full rule set: [`docs/VOICE.md`](docs/VOICE.md).
+
 Then deploy — publishing to the DB does not by itself change the site:
 
 ```bash
