@@ -1,0 +1,89 @@
+name: Build and deploy
+
+# The site is static, but its content lives in AWS RDS — so a deploy is how a
+# published post reaches the web. Three triggers:
+#   push          code or design changes
+#   workflow_dispatch  manual rebuild after publishing a post
+#   repository_dispatch (type: publish)  scripted rebuild, e.g.
+#     gh api repos/:owner/:repo/dispatches -f event_type=publish
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [publish]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race to publish different builds.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build static site
+        env:
+          # Read-only would be enough here; the build never writes.
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run build
+
+      - name: Fail if the build produced no posts
+        # A DB hiccup that returned zero rows would otherwise deploy an empty
+        # blog over a working one, and look like a green deploy while doing it.
+        run: |
+          count=$(find out/blog -mindepth 1 -maxdepth 1 -type d | wc -l)
+          echo "built $count post page(s)"
+          if [ "$count" -eq 0 ]; then
+            echo "::error::No post pages were generated — refusing to deploy an empty site."
+            exit 1
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+# ── Why this file is not at .github/workflows/deploy.yml ──────────────
+# The gh CLI token on agents-vm has no `workflow` scope, so any push that
+# creates or edits a file under .github/workflows/ is rejected outright.
+#
+# To install it, either:
+#   a) add it through the GitHub web UI (Actions > new workflow, paste this), or
+#   b) push it from a machine whose token has `workflow` scope:
+#        cp docs/deploy.workflow.yml .github/workflows/deploy.yml
+#        git add .github/workflows/deploy.yml && git commit && git push
+#
+# Then switch Pages to Actions:
+#   gh api -X PUT repos/KhalidAlMuhammed/KhalidAlMuhammed.github.io/pages \
+#     -f build_type=workflow
+#
+# If the Actions build cannot reach AWS RDS (GitHub runners have dynamic
+# egress IPs; if the RDS security group is an allowlist rather than open, the
+# build fails at connect), use ./scripts/deploy-local.sh instead — it builds
+# where the database is already reachable and publishes only the finished HTML.

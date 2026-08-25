@@ -1,13 +1,111 @@
-# Khalid Al Muhammed — kalmuhammed.com
+# kalmuhammed.com
 
-The calm before the storm.
+Engineering essays. Next.js static export on GitHub Pages, content in AWS RDS.
 
-A single-file, no-framework hero. Apple-inspired type, white + black with a subtle
-orange storm gathering in the background. Deployed via GitHub Pages from `main`.
+House style for the writing itself: [`docs/VOICE.md`](docs/VOICE.md).
 
-- `index.html` — the whole site (inline CSS, zero dependencies)
-- `CNAME` — custom domain
+## How it fits together
 
-## Contact
-- Email: khalid.almuhammed@columbia.edu
-- [LinkedIn](https://www.linkedin.com/in/khalid-mahmoud-almohammed/)
+```
+content/*.md  ──push──>  AWS RDS (blog)  ──build──>  out/  ──deploy──>  GitHub Pages
+   working copy          SOURCE OF TRUTH             static             kalmuhammed.com
+                               │
+                               └──syndicate──>  dev.to · Hashnode · Substack · LinkedIn · X
+```
+
+The database is the source of truth. Markdown files under `content/` are working
+copies you edit in a real editor — `pull` brings a post down, `push` sends it
+back. The build reads the DB and emits a fully static site, so **the published
+site has no runtime dependency on the database**: an RDS outage cannot take
+kalmuhammed.com down, it can only block the next build.
+
+## Writing a post
+
+```bash
+npm run post:new     -- the-slug        # scaffold content/the-slug.md
+# ... write ...
+npm run post:push    -- content/the-slug.md
+npm run post:publish -- the-slug        # flips status to published
+```
+
+`post:push` validates before it writes: every post needs a title and a
+description, every reference needs an id/authors/title, and every `[@key]` in
+the prose must resolve to a reference. A published post must have a date.
+
+Then deploy — publishing to the DB does not by itself change the site:
+
+```bash
+gh workflow run "Build and deploy"
+# or: gh api repos/KhalidAlMuhammed/KhalidAlMuhammed.github.io/dispatches -f event_type=publish
+```
+
+## Citations
+
+Inline `[@key]` resolves against the ordered `references:` block in frontmatter
+and renders as a superscript link into the References section. Numbering is
+derived from bibliography order, so it can never drift out of sync. See
+`docs/VOICE.md`.
+
+## Syndicating
+
+```bash
+npm run syndicate -- the-slug --dry-run
+npm run syndicate -- the-slug
+npm run syndicate -- the-slug --to devto,x
+```
+
+| Target | Automated? | Notes |
+|---|---|---|
+| dev.to | yes | Forem API. Sets `canonical_url` back here. Needs `DEVTO_API_KEY`. |
+| Hashnode | yes | GraphQL. Sets `originalArticleURL`. Needs `HASHNODE_TOKEN`. |
+| Substack | no | **No public write API exists.** The script prepares the post and prints Substack's import-from-URL flow. |
+| LinkedIn | no | No article API. Generates announcement copy to paste. |
+| X | no | No article API. Generates a single-post announcement. |
+
+Re-running updates the existing dev.to/Hashnode copy rather than duplicating it
+— the remote ids live in the `syndications` table. For the manual targets,
+record where the copy landed so the post page can link to it:
+
+```bash
+npm run syndicate:record -- the-slug substack https://...
+```
+
+Every syndicated copy has its `[@key]` citations flattened to plain `[n]` and a
+Markdown References list appended, because the in-page anchors those citations
+point to only exist here.
+
+## Environment
+
+`.env.local` (gitignored), and the same values as GitHub Actions secrets:
+
+```
+DATABASE_URL=postgresql://...@reem-db.<...>.us-east-1.rds.amazonaws.com:5432/blog
+DEVTO_API_KEY=...          # optional, https://dev.to/settings/extensions
+HASHNODE_TOKEN=...         # optional, https://hashnode.com/settings/developer
+HASHNODE_PUBLICATION_ID=   # optional, auto-detected from your account
+```
+
+TLS to RDS is verified against Amazon's CA bundle (`db/rds-global-bundle.pem`),
+not disabled. `pg` >= 8.16 reads `sslmode=require` as `verify-full`, which fails
+against RDS's chain — the code strips `sslmode` and passes the bundle instead.
+Refresh the bundle from
+`https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem` if it expires.
+
+## Local development
+
+```bash
+npm install
+npm run db:migrate     # idempotent
+npm run dev            # http://localhost:3000
+npm run build          # -> out/
+```
+
+## Design
+
+Palette is lifted from the reem.chat landing (`landing-v2/landing.css`): the
+warm off-white ground `#fefffc`, slate ink `#1f2937`, hairline rules and soft
+lifted cards. Typography departs from it deliberately — reem.chat is a marketing
+page set in a pixel display face; this is a reading site, so body copy is
+Source Serif 4 at an essay measure, with Poppins for headings and UI. No colour
+accent: like reem.chat, the palette is monochrome, and links and citations are
+marked by underline and weight rather than by hue.
