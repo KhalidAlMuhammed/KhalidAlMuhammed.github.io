@@ -8,13 +8,24 @@ import { PLATFORM_LABEL } from "@/lib/types";
 
 type Params = { params: Promise<{ slug: string }> };
 
+/**
+ * With `output: "export"`, a dynamic route that generates zero pages fails the
+ * whole build — so an empty blog would take the entire site down rather than
+ * just showing an empty index. When there are no published posts we emit a
+ * single placeholder route that renders the not-found UI, which keeps the build
+ * valid without inventing a real URL anyone can reach from the site.
+ */
+const EMPTY_SLUG = "__none";
+
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();
+  if (posts.length === 0) return [{ slug: EMPTY_SLUG }];
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === EMPTY_SLUG) return { title: "Not found", robots: { index: false, follow: false } };
   const post = await getPostBySlug(slug);
   if (!post) return {};
 
@@ -44,6 +55,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function PostPage({ params }: Params) {
   const { slug } = await params;
+  if (slug === EMPTY_SLUG) notFound();
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 

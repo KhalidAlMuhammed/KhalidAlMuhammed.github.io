@@ -273,7 +273,38 @@ switch (command) {
     break;
   }
 
+  case "delete": {
+    // Deleting content/<slug>.md does NOT unpublish anything: the DB is the
+    // source of truth and the build reads it, so an orphaned row keeps
+    // generating a live page. This command is the only way to actually remove
+    // a post. Syndication rows cascade with it.
+    const all = rest.includes("--all");
+    const slug = args[0];
+    if (!all && !slug) fail("usage: npm run post:delete -- <slug>   (or --all)");
+
+    await withClient(async (client) => {
+      const { rows: targets } = all
+        ? await client.query(`SELECT slug, title, status FROM posts ORDER BY slug`)
+        : await client.query(`SELECT slug, title, status FROM posts WHERE slug = $1`, [slug]);
+
+      if (!targets.length) fail(all ? "no posts to delete" : `no post with slug "${slug}"`);
+
+      console.log(`deleting ${targets.length} post(s) from the database:`);
+      for (const t of targets) console.log(`  ${t.status.padEnd(9)} ${t.slug}  —  ${t.title}`);
+
+      const { rows: gone } = all
+        ? await client.query(`DELETE FROM posts RETURNING slug`)
+        : await client.query(`DELETE FROM posts WHERE slug = $1 RETURNING slug`, [slug]);
+
+      console.log(`\ndeleted ${gone.length} row(s).`);
+      console.log("The local content/*.md files and public/images/* are untouched;");
+      console.log("remove them separately if you want them gone too.");
+      console.log("Rebuild and deploy for the pages to disappear from the site.");
+    });
+    break;
+  }
+
   default:
-    console.log("commands: new | list | push | pull | publish");
+    console.log("commands: new | list | push | pull | publish | delete");
     process.exit(command ? 1 : 0);
 }
