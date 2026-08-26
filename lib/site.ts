@@ -3,8 +3,7 @@ export const SITE = {
   shortName: "Khalid Al Muhammed",
   url: "https://kalmuhammed.com",
   title: "Khalid Al Muhammed",
-  description:
-    "Essays on building AI systems that meet real users — argued from the literature, and from what actually broke in production.",
+  description: "I'm building a personality. Her name is Reem.",
   author: "Khalid Al Muhammed",
   email: "khalid.almuhammed@columbia.edu",
   x: "https://x.com/k_almuhammed",

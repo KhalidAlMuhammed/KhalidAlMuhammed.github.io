@@ -11,7 +11,7 @@ export default function Home() {
     <section className="min">
       <div className="min__block">
         <h1 className="min__name">Khalid Al Muhammed</h1>
-        <p className="min__line">I build AI systems that have to survive real users.</p>
+        <p className="min__line">I&apos;m building a personality. Her name is Reem.</p>
         <nav className="min__links" aria-label="Primary">
           <Link href="/blog/">Writing</Link>
           <Link href="/about/">About</Link>
