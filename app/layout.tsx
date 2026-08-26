@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -73,7 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Header />
         <main id="main">{children}</main>
-        <Footer />
       </body>
     </html>
   );

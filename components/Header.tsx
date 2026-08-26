@@ -1,21 +1,14 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 
+/** Wordmark only. The nav links lived on the home page and nowhere else needed them. */
 export default function Header() {
   return (
     <header className="site-header">
-      <div className="shell site-header__inner">
+      <div className="shell-narrow site-header__inner">
         <Link href="/" className="wordmark">
-          <span className="dot" aria-hidden="true" />
           {SITE.shortName}
         </Link>
-        <nav className="nav" aria-label="Primary">
-          <Link href="/blog/">Writing</Link>
-          <Link href="/about/">About</Link>
-          <a href={SITE.x} target="_blank" rel="noopener noreferrer">
-            X
-          </a>
-        </nav>
       </div>
     </header>
   );

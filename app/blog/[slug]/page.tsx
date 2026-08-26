@@ -59,7 +59,7 @@ export default async function PostPage({ params }: Params) {
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const { html, headings } = await renderMarkdown(post.bodyMd, post.references);
+  const { html } = await renderMarkdown(post.bodyMd, post.references);
 
   // Schema.org so the citations and dates are machine-readable. Research-shaped
   // writing benefits from being indexed as an article with a real author.
@@ -90,7 +90,6 @@ export default async function PostPage({ params }: Params) {
       />
 
       <header className="shell-narrow article-head">
-        <p className="eyebrow">Essay</p>
         <h1>{post.title}</h1>
         <p className="article-head__dek">{post.description}</p>
         <div className="article-head__meta">
@@ -120,20 +119,6 @@ export default async function PostPage({ params }: Params) {
         </figure>
       )}
 
-      {headings.length > 2 && (
-        <div className="shell-narrow">
-          <nav className="toc" aria-label="Table of contents">
-            <p className="toc__label">Contents</p>
-            <ol>
-              {headings.map((heading) => (
-                <li key={heading.slug} className={`depth-${heading.depth}`}>
-                  <a href={`#${heading.slug}`}>{heading.text}</a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-        </div>
-      )}
 
       <div className="shell-narrow">
         <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />

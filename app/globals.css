@@ -157,62 +157,6 @@ main {
   padding-inline: var(--gutter);
 }
 
-/* ── header ─────────────────────────────────────────────────── */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid var(--line-soft);
-}
-
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  height: 64px;
-}
-
-.wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5ch;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  font-size: 16px;
-  text-decoration: none;
-}
-
-.wordmark .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  display: inline-block;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(14px, 3vw, 28px);
-  font-size: 14.5px;
-}
-
-.nav a {
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.nav a:hover,
-.nav a[aria-current="page"] {
-  color: var(--ink);
-}
-
 /* ── hero ───────────────────────────────────────────────────── */
 
 .hero {
@@ -796,40 +740,6 @@ main {
   gap: 10px;
 }
 
-/* ── footer ─────────────────────────────────────────────────── */
-
-.site-footer {
-  margin-top: clamp(60px, 10vw, 110px);
-  border-top: 1px solid var(--line);
-  padding-block: 32px 44px;
-}
-
-.site-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: 14px;
-  color: var(--ink-3);
-}
-
-.site-footer a {
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.site-footer a:hover {
-  color: var(--accent-ink);
-}
-
-.site-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
 /* ── entrance ───────────────────────────────────────────────── */
 
 /* The landing's signature entrance: fade in while un-blurring, with a small
@@ -988,8 +898,7 @@ main {
    Header and footer are hidden here because both only repeated
    what this block already says. */
 
-body:has(.min) .site-header,
-body:has(.min) .site-footer {
+body:has(.min) .site-header {
   display: none;
 }
 
@@ -1035,4 +944,102 @@ body:has(.min) .site-footer {
 
 .min__links a:hover {
   color: var(--ink);
+}
+
+/* ── header ─────────────────────────────────────────────────────
+   Wordmark only, and hidden on the home page. Nothing sticky: a bar
+   that follows you down the page is one more element. */
+
+.site-header {
+  padding-block: 30px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+}
+
+.wordmark {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink-3);
+  transition: color 0.2s ease;
+}
+
+.wordmark:hover {
+  color: var(--ink);
+}
+
+/* ── inner pages ────────────────────────────────────────────── */
+
+.page {
+  padding-block: clamp(28px, 6vh, 56px) clamp(64px, 12vh, 120px);
+}
+
+.page__note {
+  color: var(--ink-3);
+  font-size: 16px;
+}
+
+.page__prose {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 19px;
+  line-height: 1.7;
+  max-width: var(--measure);
+}
+
+.page__prose > * + * {
+  margin-top: 1.15em;
+}
+
+.page__prose a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-line);
+  text-underline-offset: 3px;
+}
+
+/* The essay index: a date and a title. */
+
+.index {
+  list-style: none;
+  padding: 0;
+}
+
+.index li + li {
+  border-top: 1px solid var(--line-soft);
+}
+
+.index a {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+  text-decoration: none;
+  align-items: baseline;
+}
+
+.index__date {
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+.index__title {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  transition: color 0.2s ease;
+}
+
+.index a:hover .index__title {
+  color: var(--accent-ink);
+}
+
+@media (max-width: 560px) {
+  .index a {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
 }
