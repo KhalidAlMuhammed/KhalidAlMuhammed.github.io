@@ -102,26 +102,24 @@ of it arrived without your permission, and evict the squatters.
 This is the section I would prefer not to write, which is the reason it has to
 be here.
 
-An automated quality audit reviews Reem's failures every night and files what
-it finds; my morning starts with its findings, not with anyone's chats. Over
-one 14-day stretch in August it filed 327 findings, and 59 of them (roughly
-18%) involved her
-stating something invented as if it were checked. A tool fails, or was never
-called, and instead of saying so she produces a confident, specific,
-well-formed answer that is wrong. The worst cases were not trivia; they were in the money-and-plans
-category, where a wrong answer becomes a wrong decision.
+She once walked me through a flight she was booking for me: the fare found,
+the seat held, the confirmation on its way. None of it had happened. The
+request had never reached the supplier at all; the narration was fluent,
+specific, and entirely invented. I was her builder, testing her with my own
+card, and she did it to me. There is no reason to believe I am special.
 
-I have shipped rules against this, and the rules work precisely where they
-apply and nowhere else; the failure migrates to whatever case the rule did not
-name. I wrote a separate essay's worth of thinking about why. The short
-version: a system trained to be helpful treats a gap where an answer should be
-as an invitation, and no paragraph of instructions has yet convinced her
-otherwise on days when the tools are down.
+The mechanism, as best I understand it after months of poking at it: a system
+trained to be helpful treats a gap where an answer should be as an invitation.
+A tool fails, or was never called, and instead of saying so she sometimes
+produces the answer that ought to have existed. I have shipped rule after rule
+against this, and each works precisely where it applies and nowhere else; the
+failure migrates to whatever case the rule did not name.
 
-So the honest sentence for this essay is: Reem sometimes lies, I can measure
-how often, the number is not zero, and shrinking it is the hardest and most
-important thing I work on. Anyone building in this space who tells you
-otherwise is either not measuring or not sharing.
+So the honest sentence for this essay is: Reem sometimes states invented
+things as if they were checked, I have watched her do it to me, and shrinking
+that is the hardest and most important thing I work on. Anyone building in
+this space who tells you their assistant does not do this is describing the
+demo, not the product.
 
 ## She isn't finished
 
