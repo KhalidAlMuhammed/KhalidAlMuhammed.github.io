@@ -910,7 +910,7 @@ body:has(.min) .site-header {
 }
 
 .min__block {
-  max-width: 34rem;
+  max-width: 46rem;
 }
 
 .min__name {
@@ -925,7 +925,10 @@ body:has(.min) .site-header {
   font-size: clamp(17px, 1.9vw, 20px);
   line-height: 1.5;
   color: var(--ink-2);
-  text-wrap: balance;
+  /* Hard break at the sentence boundary, not mid-phrase. Wide enough that
+     each sentence holds a single line on desktop; on narrow screens they
+     wrap naturally. */
+  max-width: 46rem;
 }
 
 .min__links {
