@@ -88,7 +88,7 @@ body {
   flex-direction: column;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -368,7 +368,7 @@ main {
 
 .article-head__dek {
   margin-top: 20px;
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.55;
   color: var(--ink-2);
@@ -391,7 +391,7 @@ main {
 /* ── prose ──────────────────────────────────────────────────── */
 
 .prose {
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 19px;
   line-height: 1.72;
   color: var(--ink);
@@ -984,7 +984,7 @@ body:has(.min) .site-header {
 }
 
 .page__prose {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 19px;
   line-height: 1.7;
   max-width: var(--measure);
@@ -1042,4 +1042,27 @@ body:has(.min) .site-header {
     grid-template-columns: minmax(0, 1fr);
     gap: 5px;
   }
+}
+
+/* TYPE PREVIEW — delete once a face is chosen. */
+.tp { padding: 40px clamp(28px, 9vw, 128px); }
+.tp__row { padding-block: 34px; border-bottom: 1px solid var(--line-soft); }
+.tp__row:last-child { border-bottom: 0; }
+.tp__tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-ink); margin-bottom: 18px;
+}
+.tp__tag span { color: var(--ink-3); text-transform: none; letter-spacing: 0; }
+.tp__name { font-size: 30px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; }
+.tp__line { margin-top: 14px; font-size: 20px; line-height: 1.5; color: var(--ink-2); }
+.tp__links { margin-top: 26px; display: flex; gap: 24px; font-size: 15px; color: var(--ink-3); }
+
+/* Headings, the wordmark and controls are Thmanyah Sans, matching reem.chat.
+   Body copy stays Vazirmatn. */
+h1, h2, h3, h4,
+.wordmark,
+.pill,
+.min__name {
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
