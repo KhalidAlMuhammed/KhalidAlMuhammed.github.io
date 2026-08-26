@@ -9,3 +9,5 @@ next-env.d.ts
 npm-debug.log*
 *.tsbuildinfo
 .github/
+.vercel
+.env*

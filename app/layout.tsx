@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Vazirmatn, JetBrains_Mono } from "next/font/google";
 import Header from "@/components/Header";
+import Analytics from "@/components/Analytics";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Header />
         <main id="main">{children}</main>
+        <Analytics />
       </body>
     </html>
   );

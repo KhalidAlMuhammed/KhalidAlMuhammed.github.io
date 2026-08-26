@@ -117,3 +117,52 @@ page set in a pixel display face; this is a reading site, so body copy is
 Source Serif 4 at an essay measure, with Poppins for headings and UI. No colour
 accent: like reem.chat, the palette is monochrome, and links and citations are
 marked by underline and weight rather than by hue.
+
+## Hosting and analytics
+
+The site runs on **Vercel**, not GitHub Pages. It needs a runtime for the
+analytics endpoint, and GitHub's runners cannot reach the RDS instance at build
+time (see below).
+
+### Reading analytics
+
+Cookieless, self-hosted, in the same `blog` database as the posts.
+`components/Analytics.tsx` beacons to `/api/collect/`, which writes to
+`page_reads` and `link_clicks`.
+
+```bash
+npm run stats -- 30    # last 30 days
+```
+
+What it records, and the reasoning:
+
+- **engaged_ms** — time the tab was *visible* and the reader active in the last
+  30s. Wall-clock since load counts a tab left open over lunch as deep reading.
+- **last_heading** — the last h2/h3 scrolled past, i.e. where they stopped. On a
+  long essay this is the most useful number available.
+- **max_scroll_pct**, **reached_end**, **referrer_host**, **country/region/city**,
+  **device**, **viewport_w**.
+- **link_clicks** — every click, classified outbound / internal / anchor /
+  mailto / download.
+
+No cookies. No IP is stored: Vercel resolves geo at the edge and the address
+stays in the request. `session_id` is random per tab in `sessionStorage`, so it
+dies with the tab and never links two visits. `navigator.doNotTrack` is honoured.
+Together that keeps this outside consent-banner territory in the EU and UK.
+
+The endpoint is public and unauthenticated by necessity, so it treats every
+field as hostile: type-checked, length-capped, clamped, non-same-site paths
+rejected. Monotonic columns merge with `GREATEST`, since beacons arrive late and
+out of order.
+
+### Database access
+
+The app connects as **`blog_app`**, not `reemadmin`. That role can only reach
+the `blog` database — `reem`, `zillow` and `scrapers` refuse it — and has
+SELECT/INSERT/UPDATE but **no DELETE**, so a public endpoint cannot destroy
+data. Admin scripts (`db:migrate`, `post:*`) still run as `reemadmin` from
+`.env.local`.
+
+`reem-db-sg` allows 5432 from `0.0.0.0/0` because Vercel's egress IPs are
+dynamic. The exposure is bounded by the scoped role above, a 40-character
+random password and enforced TLS against Amazon's CA bundle.

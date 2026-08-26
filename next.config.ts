@@ -1,14 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Fully static build. The AWS RDS content store is read at BUILD time only,
-  // so the published site has no runtime dependency on the database.
-  output: "export",
-  // GitHub Pages serves /blog/slug/ from /blog/slug/index.html, which is what
-  // trailingSlash emits. Without it, clean URLs 404 on Pages.
+  // Runs on Vercel rather than exporting to static files: the analytics
+  // endpoint needs a runtime, and the build reads posts from AWS RDS, which
+  // GitHub's runners may not be able to reach. Pages are still prerendered.
   trailingSlash: true,
-  images: { unoptimized: true },
-  // kalmuhammed.com is an apex custom domain, so no basePath/assetPrefix.
+
+  // lib/db.ts reads the RDS CA bundle from disk at runtime via a computed
+  // path, which Next's file tracing cannot see. Without this the serverless
+  // function deploys without the certificate and every query fails TLS.
+  outputFileTracingIncludes: {
+    "/api/collect": ["./db/rds-global-bundle.pem"],
+  },
 };
 
 export default nextConfig;

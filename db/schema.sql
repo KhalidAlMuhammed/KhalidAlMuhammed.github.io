@@ -62,3 +62,53 @@ CREATE TRIGGER posts_touch BEFORE UPDATE ON posts
 -- plus its alt text. Figures inside the body are plain markdown images.
 ALTER TABLE posts ADD COLUMN IF NOT EXISTS hero_image TEXT;
 ALTER TABLE posts ADD COLUMN IF NOT EXISTS hero_alt TEXT;
+
+-- ── Reading analytics ────────────────────────────────────────────────
+-- Cookieless. No IP is stored: Vercel resolves geo at the edge and the raw
+-- address is discarded. session_id is random per tab and is never persisted
+-- across visits, so nothing here identifies a person.
+
+-- One row per (session, page), updated as the reader moves down the page.
+-- Upserting rather than appending keeps this table small and makes "how far
+-- did they get" a single column instead of an aggregation.
+CREATE TABLE IF NOT EXISTS page_reads (
+  id             BIGSERIAL PRIMARY KEY,
+  session_id     TEXT NOT NULL,
+  path           TEXT NOT NULL,
+  slug           TEXT,
+  started_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  -- Time the tab was VISIBLE and the reader was active. Wall-clock since load
+  -- counts the tab someone left open over lunch as deep engagement.
+  engaged_ms     INTEGER NOT NULL DEFAULT 0,
+  max_scroll_pct SMALLINT NOT NULL DEFAULT 0,
+  -- The last heading scrolled past: where they stopped reading.
+  last_heading   TEXT,
+  reached_end    BOOLEAN NOT NULL DEFAULT false,
+  referrer_host  TEXT,
+  country        TEXT,
+  region         TEXT,
+  city           TEXT,
+  device         TEXT,
+  viewport_w     SMALLINT,
+  UNIQUE (session_id, path)
+);
+
+CREATE INDEX IF NOT EXISTS page_reads_slug_idx ON page_reads (slug, started_at DESC);
+CREATE INDEX IF NOT EXISTS page_reads_started_idx ON page_reads (started_at DESC);
+
+-- Every link click, inbound or outbound.
+CREATE TABLE IF NOT EXISTS link_clicks (
+  id          BIGSERIAL PRIMARY KEY,
+  clicked_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  session_id  TEXT NOT NULL,
+  path        TEXT NOT NULL,
+  href        TEXT NOT NULL,
+  target_host TEXT,
+  kind        TEXT NOT NULL,
+  link_text   TEXT,
+  CONSTRAINT link_clicks_kind_chk CHECK (kind IN ('outbound', 'internal', 'anchor', 'mailto', 'download'))
+);
+
+CREATE INDEX IF NOT EXISTS link_clicks_at_idx ON link_clicks (clicked_at DESC);
+CREATE INDEX IF NOT EXISTS link_clicks_host_idx ON link_clicks (target_host, clicked_at DESC);

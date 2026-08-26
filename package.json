@@ -18,7 +18,8 @@
     "syndicate": "node scripts/syndicate.mjs",
     "syndicate:record": "node scripts/syndicate-record.mjs",
     "image": "node scripts/generate-image.mjs",
-    "post:delete": "node scripts/post.mjs delete"
+    "post:delete": "node scripts/post.mjs delete",
+    "stats": "node scripts/stats.mjs"
   },
   "dependencies": {
     "@shikijs/rehype": "^4.4.3",
