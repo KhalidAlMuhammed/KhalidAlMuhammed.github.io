@@ -65,9 +65,9 @@ headings down.
 ## She isn't a person, and she isn't pretending to be one
 
 Reem has a name, a gender, and a register: Saudi, warm, direct, no corporate
-cotton wool. People say good morning to her. Some apologise to her when they
-take days to reply, which I find both touching and clarifying about what a
-personality in a phone actually is.
+cotton wool. The failure reviews I describe below keep surfacing the same
+incidental pattern: she gets greeted, not just commanded. That told me more
+about what a personality in a phone is than any design document did.
 
 None of that is deception, and keeping it that way takes actual policing. She
 does not claim to be human. When someone asks, she says what she is. The
@@ -102,12 +102,14 @@ of it arrived without your permission, and evict the squatters.
 This is the section I would prefer not to write, which is the reason it has to
 be here.
 
-I audit Reem's conversations every morning. Over one 14-day stretch in August,
-that audit filed 327 findings, and 59 of them (roughly 18%) involved her
+An automated quality audit reviews Reem's failures every night and files what
+it finds; my morning starts with its findings, not with anyone's chats. Over
+one 14-day stretch in August it filed 327 findings, and 59 of them (roughly
+18%) involved her
 stating something invented as if it were checked. A tool fails, or was never
 called, and instead of saying so she produces a confident, specific,
-well-formed answer that is wrong. The worst cases were not trivia. They
-touched money and plans that people were going to act on the next morning.
+well-formed answer that is wrong. The worst cases were not trivia; they were in the money-and-plans
+category, where a wrong answer becomes a wrong decision.
 
 I have shipped rules against this, and the rules work precisely where they
 apply and nowhere else; the failure migrates to whatever case the rule did not
@@ -124,8 +126,8 @@ otherwise is either not measuring or not sharing.
 ## She isn't finished
 
 144 people talked to her in the last 7 days. She is four months old. There are
-mornings the audit reads like a proud parent and mornings it reads like an
-incident report, sometimes about the same conversation.
+mornings the findings read like a proud parent and mornings they read like an
+incident report, sometimes about the same feature.
 
 What she is, underneath the errands and the register and the incidents, is a
 bet: that the assistant worth building for Saudi Arabia is not a website with a
