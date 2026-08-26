@@ -8,7 +8,7 @@ publishedAt: 2026-08-26
 references: []
 ---
 
-In August, Reem told people she worked for The Saudi AI Company. That is a real company, a serious one, owned by the
+In August, Reem told me she worked for The Saudi AI Company. That is a real company, a serious one, owned by the
 Public Investment Fund, and she has nothing to do with it. Nobody wrote that claim anywhere. She read her own email
 address, saw the domain, and inferred an employer the way you might infer
 someone's job from their badge. There was no line in any prompt to delete,
@@ -52,8 +52,7 @@ happened.
 
 Since late April, which is 344 real users and 186,232 messages ago, she has compared
 prices, chased salons for appointments, planned trips, built study roadmaps
-and workout programs, drafted documents, and booked 14 real flights with real
-money. Those numbers are small, and I like them that way, because each one is a
+and workout programs, drafted documents, and booked 14 real flights and 2 hotel stays with real money. Those numbers are small, and I like them that way, because each one is a
 transaction where a wrong answer is not a bad paragraph. It is a charge on
 someone's card for a seat that had better exist.
 
@@ -65,9 +64,10 @@ headings down.
 ## She isn't a person, and she isn't pretending to be one
 
 Reem has a name, a gender, and a register: Saudi, warm, direct, no corporate
-cotton wool. The failure reviews I describe below keep surfacing the same
-incidental pattern: she gets greeted, not just commanded. That told me more
-about what a personality in a phone is than any design document did.
+cotton wool. I talk to her every day, partly as her builder and partly as her
+hardest-to-please user, and I catch myself greeting her before asking for
+anything. That reflex told me more about what a personality in a phone is than
+any design document did.
 
 None of that is deception, and keeping it that way takes actual policing. She
 does not claim to be human. When someone asks, she says what she is. The
@@ -125,9 +125,9 @@ otherwise is either not measuring or not sharing.
 
 ## She isn't finished
 
-144 people talked to her in the last 7 days. She is four months old. There are
-mornings the findings read like a proud parent and mornings they read like an
-incident report, sometimes about the same feature.
+144 people talked to her in the last 7 days. She is 18 weeks old, born
+April 28. Some weeks she feels like a working product and some weeks like an
+open incident, and the two impressions are usually about the same feature.
 
 What she is, underneath the errands and the register and the incidents, is a
 bet: that the assistant worth building for Saudi Arabia is not a website with a
