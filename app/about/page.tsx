@@ -11,22 +11,25 @@ export default function About() {
     <section className="shell-narrow page">
       <div className="page__prose">
         <p>
-          I build AI systems that have to survive real users. Right now that is{" "}
+          I&apos;m Khalid — Saudi, finishing my last year at Columbia, living in New
+          York on Riyadh time.
+        </p>
+        <p>
+          I like building whole things and running them for real people. The current
+          obsession is{" "}
           <a href="https://reem.chat" target="_blank" rel="noopener noreferrer">
             Reem
           </a>
-          , a personal assistant that lives inside WhatsApp.
+          , a personality that lives in WhatsApp — which in practice means I also run
+          phone lines, deploys, ad campaigns, and a small fleet of AI agents that
+          build alongside me. I write decisions down the day I make them, and I care
+          an unreasonable amount about whether machines can speak Saudi Arabic the
+          way Saudis actually do.
         </p>
         <p>
-          I&apos;m a senior at Columbia. Reem&apos;s users are in Saudi Arabia, which
-          means every hard problem arrives in Arabic, on Riyadh time. An agent that
-          books flights, takes payments, and talks to people at two in the morning
-          teaches you quickly which parts of the demo were load-bearing.
-        </p>
-        <p>
-          What I publish here are field notes from that machine: decisions written
-          down the day they were made, and lessons published once they stopped
-          changing.
+          If you&apos;re building something, in Saudi or anywhere, and want to
+          compare notes — or you think something I wrote here is wrong — email me. I
+          answer.
         </p>
         <p>
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
