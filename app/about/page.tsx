@@ -11,7 +11,7 @@ export default function About() {
     <section className="shell-narrow page">
       <div className="page__prose">
         <p>
-          I&apos;m Khalid — Saudi, finishing my last year at Columbia, living in New
+          I&apos;m Khalid. Saudi, finishing my last year at Columbia, living in New
           York on Riyadh time.
         </p>
         <p>
@@ -20,19 +20,19 @@ export default function About() {
           <a href="https://reem.chat" target="_blank" rel="noopener noreferrer">
             Reem
           </a>
-          , a personality that lives in WhatsApp — which in practice means I also run
+          , a personality that lives in WhatsApp, which in practice means I also run
           phone lines, deploys, ad campaigns, and a small fleet of AI agents that
           build alongside me. I write decisions down the day I make them, and I care
           an unreasonable amount about whether machines can speak Saudi Arabic the
           way Saudis actually do.
         </p>
         <p>
-          If you&apos;re building something, in Saudi or anywhere, and want to
-          compare notes — or you think something I wrote here is wrong — email me. I
-          answer.
-        </p>
-        <p>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          If you&apos;re building something and want to compare notes, or you think
+          something I wrote here is wrong,{" "}
+          <a href={SITE.x} target="_blank" rel="noopener noreferrer">
+            message me on X
+          </a>
+          . I answer.
         </p>
       </div>
     </section>
